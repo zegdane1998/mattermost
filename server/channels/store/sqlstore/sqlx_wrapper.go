@@ -246,6 +246,22 @@ func (w *sqlxDBWrapper) SelectCtx(ctx context.Context, dest any, query string, a
 	return w.checkErr(w.DB.SelectContext(ctx, dest, query, args...)) //nolint:sqlxWrapper
 }
 
+func (w *sqlxDBWrapper) Query(_ string, _ ...any) (*sql.Rows, error) {
+	panic("sqlxDBWrapper.Query bypasses the query timeout; use SelectCtx for struct scanning or QueryContext with an explicit timeout context")
+}
+
+func (w *sqlxDBWrapper) QueryRow(_ string, _ ...any) *sql.Row {
+	panic("sqlxDBWrapper.QueryRow bypasses the query timeout; use Get for struct scanning or QueryRowContext with an explicit timeout context")
+}
+
+func (w *sqlxDBWrapper) Queryx(_ string, _ ...any) (*sqlx.Rows, error) {
+	panic("sqlxDBWrapper.Queryx bypasses the query timeout; use SelectCtx for struct scanning or QueryxContext with an explicit timeout context")
+}
+
+func (w *sqlxDBWrapper) QueryRowx(_ string, _ ...any) *sqlx.Row {
+	panic("sqlxDBWrapper.QueryRowx bypasses the query timeout; use GetX for struct scanning or QueryRowxContext with an explicit timeout context")
+}
+
 func (w *sqlxDBWrapper) SelectBuilder(dest any, builder Builder) error {
 	return w.SelectBuilderCtx(context.Background(), dest, builder)
 }
@@ -436,6 +452,22 @@ func (w *sqlxTxWrapper) Select(dest any, query string, args ...any) error {
 	}
 
 	return w.dbw.checkErr(w.Tx.SelectContext(ctx, dest, query, args...)) //nolint:sqlxWrapper
+}
+
+func (w *sqlxTxWrapper) Query(_ string, _ ...any) (*sql.Rows, error) {
+	panic("sqlxTxWrapper.Query bypasses the query timeout; use SelectCtx for struct scanning or QueryContext with an explicit timeout context")
+}
+
+func (w *sqlxTxWrapper) QueryRow(_ string, _ ...any) *sql.Row {
+	panic("sqlxTxWrapper.QueryRow bypasses the query timeout; use Get for struct scanning or QueryRowContext with an explicit timeout context")
+}
+
+func (w *sqlxTxWrapper) Queryx(_ string, _ ...any) (*sqlx.Rows, error) {
+	panic("sqlxTxWrapper.Queryx bypasses the query timeout; use SelectCtx for struct scanning or QueryxContext with an explicit timeout context")
+}
+
+func (w *sqlxTxWrapper) QueryRowx(_ string, _ ...any) *sqlx.Row {
+	panic("sqlxTxWrapper.QueryRowx bypasses the query timeout; use GetX for struct scanning or QueryRowxContext with an explicit timeout context")
 }
 
 func (w *sqlxTxWrapper) SelectBuilder(dest any, builder Builder) error {
