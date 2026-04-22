@@ -118,7 +118,7 @@ func (w *sqlxDBWrapper) Get(dest any, query string, args ...any) error {
 		}(time.Now())
 	}
 
-	return w.checkErr(w.DB.GetContext(ctx, dest, query, args...))
+	return w.checkErr(w.DB.GetContext(ctx, dest, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxDBWrapper) GetBuilder(dest any, builder Builder) error {
@@ -141,7 +141,7 @@ func (w *sqlxDBWrapper) NamedExec(query string, arg any) (sql.Result, error) {
 		}(time.Now())
 	}
 
-	return w.checkErrWithResult(w.DB.NamedExecContext(ctx, query, arg))
+	return w.checkErrWithResult(w.DB.NamedExecContext(ctx, query, arg)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxDBWrapper) Exec(query string, args ...any) (sql.Result, error) {
@@ -168,7 +168,7 @@ func (w *sqlxDBWrapper) ExecNoTimeout(query string, args ...any) (sql.Result, er
 		}(time.Now())
 	}
 
-	return w.checkErrWithResult(w.DB.ExecContext(context.Background(), query, args...))
+	return w.checkErrWithResult(w.DB.ExecContext(context.Background(), query, args...)) //nolint:sqlxWrapper
 }
 
 // ExecRaw is like Exec but without any rebinding of params. You need to pass
@@ -183,7 +183,7 @@ func (w *sqlxDBWrapper) ExecRaw(query string, args ...any) (sql.Result, error) {
 		}(time.Now())
 	}
 
-	return w.checkErrWithResult(w.DB.ExecContext(ctx, query, args...))
+	return w.checkErrWithResult(w.DB.ExecContext(ctx, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxDBWrapper) NamedQuery(query string, arg any) (*sqlx.Rows, error) {
@@ -211,7 +211,7 @@ func (w *sqlxDBWrapper) QueryRowX(query string, args ...any) *sqlx.Row {
 		}(time.Now())
 	}
 
-	return w.DB.QueryRowxContext(ctx, query, args...)
+	return w.DB.QueryRowxContext(ctx, query, args...) //nolint:sqlxWrapper
 }
 
 func (w *sqlxDBWrapper) QueryX(query string, args ...any) (*sqlx.Rows, error) {
@@ -225,7 +225,7 @@ func (w *sqlxDBWrapper) QueryX(query string, args ...any) (*sqlx.Rows, error) {
 		}(time.Now())
 	}
 
-	return w.checkErrWithRows(w.DB.QueryxContext(ctx, query, args...))
+	return w.checkErrWithRows(w.DB.QueryxContext(ctx, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxDBWrapper) Select(dest any, query string, args ...any) error {
@@ -243,7 +243,7 @@ func (w *sqlxDBWrapper) SelectCtx(ctx context.Context, dest any, query string, a
 		}(time.Now())
 	}
 
-	return w.checkErr(w.DB.SelectContext(ctx, dest, query, args...))
+	return w.checkErr(w.DB.SelectContext(ctx, dest, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxDBWrapper) SelectBuilder(dest any, builder Builder) error {
@@ -286,7 +286,7 @@ func (w *sqlxTxWrapper) Get(dest any, query string, args ...any) error {
 		}(time.Now())
 	}
 
-	return w.dbw.checkErr(w.Tx.GetContext(ctx, dest, query, args...))
+	return w.dbw.checkErr(w.Tx.GetContext(ctx, dest, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) GetBuilder(dest any, builder Builder) error {
@@ -313,7 +313,7 @@ func (w *sqlxTxWrapper) ExecNoTimeout(query string, args ...any) (sql.Result, er
 		}(time.Now())
 	}
 
-	return w.dbw.checkErrWithResult(w.Tx.ExecContext(context.Background(), query, args...))
+	return w.dbw.checkErrWithResult(w.Tx.ExecContext(context.Background(), query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) ExecBuilder(builder Builder) (sql.Result, error) {
@@ -337,7 +337,7 @@ func (w *sqlxTxWrapper) ExecRaw(query string, args ...any) (sql.Result, error) {
 		}(time.Now())
 	}
 
-	return w.dbw.checkErrWithResult(w.Tx.ExecContext(ctx, query, args...))
+	return w.dbw.checkErrWithResult(w.Tx.ExecContext(ctx, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) NamedExec(query string, arg any) (sql.Result, error) {
@@ -351,7 +351,7 @@ func (w *sqlxTxWrapper) NamedExec(query string, arg any) (sql.Result, error) {
 		}(time.Now())
 	}
 
-	return w.dbw.checkErrWithResult(w.Tx.NamedExecContext(ctx, query, arg))
+	return w.dbw.checkErrWithResult(w.Tx.NamedExecContext(ctx, query, arg)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) NamedQuery(query string, arg any) (*sqlx.Rows, error) {
@@ -375,7 +375,7 @@ func (w *sqlxTxWrapper) NamedQuery(query string, arg any) (*sqlx.Rows, error) {
 	// Need to add a buffer of 1 to prevent goroutine leak.
 	resChan := make(chan *result, 1)
 	go func() {
-		rows, err := w.Tx.NamedQuery(query, arg)
+		rows, err := w.Tx.NamedQuery(query, arg) //nolint:sqlxWrapper
 		resChan <- &result{
 			rows: rows,
 			err:  err,
@@ -407,7 +407,7 @@ func (w *sqlxTxWrapper) QueryRowX(query string, args ...any) *sqlx.Row {
 		}(time.Now())
 	}
 
-	return w.Tx.QueryRowxContext(ctx, query, args...)
+	return w.Tx.QueryRowxContext(ctx, query, args...) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) QueryX(query string, args ...any) (*sqlx.Rows, error) {
@@ -421,7 +421,7 @@ func (w *sqlxTxWrapper) QueryX(query string, args ...any) (*sqlx.Rows, error) {
 		}(time.Now())
 	}
 
-	return w.dbw.checkErrWithRows(w.Tx.QueryxContext(ctx, query, args...))
+	return w.dbw.checkErrWithRows(w.Tx.QueryxContext(ctx, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) Select(dest any, query string, args ...any) error {
@@ -435,7 +435,7 @@ func (w *sqlxTxWrapper) Select(dest any, query string, args ...any) error {
 		}(time.Now())
 	}
 
-	return w.dbw.checkErr(w.Tx.SelectContext(ctx, dest, query, args...))
+	return w.dbw.checkErr(w.Tx.SelectContext(ctx, dest, query, args...)) //nolint:sqlxWrapper
 }
 
 func (w *sqlxTxWrapper) SelectBuilder(dest any, builder Builder) error {

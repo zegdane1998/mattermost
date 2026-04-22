@@ -22,6 +22,7 @@ import (
 	"github.com/mattermost/mattermost/tools/mattermost-govet/pointerToSlice"
 	"github.com/mattermost/mattermost/tools/mattermost-govet/rawSql"
 	"github.com/mattermost/mattermost/tools/mattermost-govet/requestCtxNaming"
+	"github.com/mattermost/mattermost/tools/mattermost-govet/sqlxWrapper"
 	"github.com/mattermost/mattermost/tools/mattermost-govet/structuredLogging"
 	"github.com/mattermost/mattermost/tools/mattermost-govet/tFatal"
 	"github.com/mattermost/mattermost/tools/mattermost-govet/wraperrors"
@@ -53,5 +54,6 @@ func main() {
 		noSelectStar.Analyzer,
 		requestCtxNaming.Analyzer,
 		concurrentIndex.Analyzer,
+		sqlxWrapper.Analyzer,
 	)
 }

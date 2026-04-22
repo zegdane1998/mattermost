@@ -846,6 +846,7 @@ vet: setup-go-work ## Run mattermost go vet specific checks
 		-concurrentIndex \
 		-concurrentIndex.path=./channels/db/migrations/ \
 		-concurrentIndex.minMigration=166 \
+		-sqlxWrapper \
 		./...
 ifeq ($(BUILD_ENTERPRISE_READY),true)
   ifneq ($(MM_NO_ENTERPRISE_LINT),true)
