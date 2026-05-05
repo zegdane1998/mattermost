@@ -1097,8 +1097,7 @@ func checkHasNilFields(value any) bool {
 		return false
 	}
 
-	for i := 0; i < v.NumField(); i++ {
-		field := v.Field(i)
+	for _, field := range v.Fields() {
 		if field.Kind() == reflect.Ptr && field.IsNil() {
 			return true
 		}

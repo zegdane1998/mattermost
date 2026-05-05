@@ -31,7 +31,7 @@ func setupSharedChannels(tb testing.TB) *TestHelper {
 		*cfg.ConnectedWorkspacesSettings.EnableRemoteClusterService = true
 		*cfg.ConnectedWorkspacesSettings.EnableSharedChannels = true
 		cfg.FeatureFlags.EnableSharedChannelsMemberSync = true
-		cfg.ClusterSettings.ClusterName = model.NewPointer("test-remote")
+		cfg.ClusterSettings.ClusterName = new("test-remote")
 	})
 }
 
@@ -1223,7 +1223,7 @@ func TestPluginAPIReceiveSharedChannelSyncMsg(t *testing.T) {
 				Id:       userID,
 				Username: username,
 				Email:    email,
-				RemoteId: model.NewPointer(rc.RemoteId),
+				RemoteId: new(rc.RemoteId),
 			},
 		}
 
@@ -1248,7 +1248,7 @@ func TestPluginAPIReceiveSharedChannelSyncMsg(t *testing.T) {
 				Id:       userID,
 				Username: "post-author-" + model.NewId()[:8],
 				Email:    model.NewId() + "@remote.test",
-				RemoteId: model.NewPointer(rc.RemoteId),
+				RemoteId: new(rc.RemoteId),
 			},
 		}
 		_, err := api.ReceiveSharedChannelSyncMsg(rc.RemoteId, msg)
@@ -1264,7 +1264,7 @@ func TestPluginAPIReceiveSharedChannelSyncMsg(t *testing.T) {
 				UserId:    userID,
 				Message:   "hello from the plugin remote",
 				CreateAt:  model.GetMillis(),
-				RemoteId:  model.NewPointer(rc.RemoteId),
+				RemoteId:  new(rc.RemoteId),
 			},
 		}
 
@@ -1355,7 +1355,7 @@ func TestPluginAPIReceiveSharedChannelAttachmentSyncMsg(t *testing.T) {
 			Email:    model.NewId() + "@remote.test",
 			Username: "remote-attach-" + model.NewId()[:8],
 			Password: model.NewTestPassword(),
-			RemoteId: model.NewPointer(rc.RemoteId),
+			RemoteId: new(rc.RemoteId),
 		}
 		remoteUser, appErr := th.App.CreateUser(th.Context, remoteUser)
 		require.Nil(t, appErr)
@@ -1430,7 +1430,7 @@ func TestPluginAPIReceiveSharedChannelProfileImageSyncMsg(t *testing.T) {
 			Email:    model.NewId() + "@remote.test",
 			Username: "remote-img-" + model.NewId()[:8],
 			Password: model.NewTestPassword(),
-			RemoteId: model.NewPointer(rc.RemoteId),
+			RemoteId: new(rc.RemoteId),
 		}
 		remoteUser, appErr := th.App.CreateUser(th.Context, remoteUser)
 		require.Nil(t, appErr)

@@ -110,8 +110,7 @@ func generateEnvironmentMapWithBaseKey(env map[string]string, rType reflect.Type
 	}
 
 	mapRepresentation := make(map[string]any)
-	for i := 0; i < rType.NumField(); i++ {
-		rField := rType.Field(i)
+	for rField := range rType.Fields() {
 		if filter != nil && !filter(rField) {
 			continue
 		}

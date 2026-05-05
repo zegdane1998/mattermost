@@ -143,7 +143,7 @@ func TestCreateChannel(t *testing.T) {
 	require.Equal(t, http.StatusBadRequest, r.StatusCode, "Expected 400 Bad Request")
 
 	// Test GroupConstrained flag
-	groupConstrainedChannel := &model.Channel{DisplayName: "Test API Name", Name: GenerateTestChannelName(), Type: model.ChannelTypeOpen, TeamId: team.Id, GroupConstrained: model.NewPointer(true)}
+	groupConstrainedChannel := &model.Channel{DisplayName: "Test API Name", Name: GenerateTestChannelName(), Type: model.ChannelTypeOpen, TeamId: team.Id, GroupConstrained: new(true)}
 	rchannel, _, err = client.CreateChannel(context.Background(), groupConstrainedChannel)
 	require.NoError(t, err)
 
@@ -172,9 +172,9 @@ func TestCreateChannel(t *testing.T) {
 			Type:        model.ChannelTypeOpen,
 			TeamId:      team.Id,
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -195,7 +195,7 @@ func TestCreateChannel(t *testing.T) {
 			Type:        model.ChannelTypeOpen,
 			TeamId:      team.Id,
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled: model.NewPointer(true),
+				Enabled: new(true),
 			},
 		}
 
@@ -434,7 +434,7 @@ func TestUpdateChannel(t *testing.T) {
 	require.Equal(t, channel.Purpose, newChannel.Purpose, "Update failed for Purpose")
 
 	// Test GroupConstrained flag
-	channel.GroupConstrained = model.NewPointer(true)
+	channel.GroupConstrained = new(true)
 	rchannel, resp, err := client.UpdateChannel(context.Background(), channel)
 	require.NoError(t, err)
 	CheckOKStatus(t, resp)
@@ -605,7 +605,7 @@ func TestPatchChannelGroupConstrained(t *testing.T) {
 	t.Run("Test GroupConstrained flag", func(t *testing.T) {
 		// Test GroupConstrained flag
 		patch := &model.ChannelPatch{}
-		patch.GroupConstrained = model.NewPointer(true)
+		patch.GroupConstrained = new(true)
 		rchannel, resp, err := client.PatchChannel(context.Background(), th.BasicChannel.Id, patch)
 		require.NoError(t, err)
 		CheckOKStatus(t, resp)
@@ -625,7 +625,7 @@ func TestPatchChannelGroupConstrained(t *testing.T) {
 		_, _, err = client.Login(context.Background(), user.Email, user.Password)
 		require.NoError(t, err)
 
-		patch.GroupConstrained = model.NewPointer(false)
+		patch.GroupConstrained = new(false)
 
 		_, resp, err = client.PatchChannel(context.Background(), th.BasicChannel.Id, patch)
 		require.Error(t, err)
@@ -674,7 +674,7 @@ func TestPatchChannelGroupConstrained(t *testing.T) {
 		CheckCreatedStatus(t, r)
 
 		patch := &model.ChannelPatch{}
-		patch.GroupConstrained = model.NewPointer(true)
+		patch.GroupConstrained = new(true)
 		_, r, err = th.SystemAdminClient.PatchChannel(context.Background(), channel.Id, patch)
 		require.NoError(t, err)
 		CheckOKStatus(t, r)
@@ -762,13 +762,13 @@ func TestPatchChannelGroupConstrained(t *testing.T) {
 		}
 
 		patch := &model.ChannelPatch{}
-		patch.GroupConstrained = model.NewPointer(true)
+		patch.GroupConstrained = new(true)
 		_, r, err = th.SystemAdminClient.PatchChannel(context.Background(), channel.Id, patch)
 		require.NoError(t, err)
 		CheckOKStatus(t, r)
 
 		// Change the GroupConstrained flag to false
-		patch.GroupConstrained = model.NewPointer(false)
+		patch.GroupConstrained = new(false)
 		_, r, err = th.SystemAdminClient.PatchChannel(context.Background(), channel.Id, patch)
 		require.NoError(t, err)
 		CheckOKStatus(t, r)
@@ -1011,9 +1011,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1044,9 +1044,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1077,9 +1077,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1104,9 +1104,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1127,9 +1127,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1163,7 +1163,7 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled: model.NewPointer(true),
+				Enabled: new(true),
 			},
 		}
 
@@ -1175,8 +1175,8 @@ func TestPatchChannel(t *testing.T) {
 		patch = &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
 				Enabled:         nil,
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1190,7 +1190,7 @@ func TestPatchChannel(t *testing.T) {
 
 		patch = &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled: model.NewPointer(true),
+				Enabled: new(true),
 			},
 		}
 
@@ -1219,9 +1219,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1249,9 +1249,9 @@ func TestPatchChannel(t *testing.T) {
 
 		patch := &model.ChannelPatch{
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled:         model.NewPointer(true),
-				Text:            model.NewPointer("banner text"),
-				BackgroundColor: model.NewPointer("#dddddd"),
+				Enabled:         new(true),
+				Text:            new("banner text"),
+				BackgroundColor: new("#dddddd"),
 			},
 		}
 
@@ -1289,7 +1289,7 @@ func TestPatchChannel(t *testing.T) {
 		th.LoginSystemAdmin(t)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err := th.SystemAdminClient.PatchChannel(context.Background(), th.BasicChannel.Id, patch)
@@ -1300,7 +1300,7 @@ func TestPatchChannel(t *testing.T) {
 		require.True(t, patchedChannel.AutoTranslation)
 
 		patch = &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(false),
+			AutoTranslation: new(false),
 		}
 
 		_, resp, err = th.SystemAdminClient.PatchChannel(context.Background(), th.BasicChannel.Id, patch)
@@ -1330,7 +1330,7 @@ func TestPatchChannel(t *testing.T) {
 		th.AddUserToChannel(t, th.BasicUser, privateChannel)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err := client.PatchChannel(context.Background(), th.BasicChannel.Id, patch)
@@ -1380,7 +1380,7 @@ func TestPatchChannel(t *testing.T) {
 		th.LoginBasic(t)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err := client.PatchChannel(context.Background(), th.BasicChannel.Id, patch)
@@ -1415,7 +1415,7 @@ func TestPatchChannel(t *testing.T) {
 		CheckCreatedStatus(t, resp)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err = client.PatchChannel(context.Background(), dmChannel.Id, patch)
@@ -1456,7 +1456,7 @@ func TestPatchChannel(t *testing.T) {
 		CheckCreatedStatus(t, resp)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err = client.PatchChannel(context.Background(), gmChannel.Id, patch)
@@ -1498,7 +1498,7 @@ func TestPatchChannel(t *testing.T) {
 		CheckCreatedStatus(t, resp)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err = client.PatchChannel(context.Background(), dmChannel.Id, patch)
@@ -1538,7 +1538,7 @@ func TestPatchChannel(t *testing.T) {
 		CheckCreatedStatus(t, resp)
 
 		patch := &model.ChannelPatch{
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 		}
 
 		_, resp, err = client.PatchChannel(context.Background(), gmChannel.Id, patch)
@@ -1575,10 +1575,10 @@ func TestPatchChannel(t *testing.T) {
 		newHeader := "mixed patch header"
 		mixedPatch := &model.ChannelPatch{
 			Header:          &newHeader,
-			AutoTranslation: model.NewPointer(true),
+			AutoTranslation: new(true),
 			BannerInfo: &model.ChannelBannerInfo{
-				Enabled: model.NewPointer(false),
-				Text:    model.NewPointer("mixed patch banner"),
+				Enabled: new(false),
+				Text:    new("mixed patch banner"),
 			},
 		}
 
@@ -2443,7 +2443,7 @@ func TestGetRecommendedChannelsForTeam(t *testing.T) {
 		require.True(t, ok, "SetLicense should return true")
 		t.Cleanup(func() { _ = th.App.Srv().RemoveLicense() })
 		th.App.UpdateConfig(func(cfg *model.Config) {
-			cfg.AccessControlSettings.EnableAttributeBasedAccessControl = model.NewPointer(true)
+			cfg.AccessControlSettings.EnableAttributeBasedAccessControl = new(true)
 		})
 
 		// Wire a mock ABAC service that allows the requester for `included`
@@ -2852,7 +2852,7 @@ func TestGetAllChannels(t *testing.T) {
 	policy, err := th.App.Srv().Store().RetentionPolicy().Save(&model.RetentionPolicyWithTeamAndChannelIDs{
 		RetentionPolicy: model.RetentionPolicy{
 			DisplayName:      "Policy 1",
-			PostDurationDays: model.NewPointer(int64(30)),
+			PostDurationDays: new(int64(30)),
 		},
 		ChannelIDs: []string{policyChannel.Id},
 	})
@@ -3145,7 +3145,7 @@ func TestSearchAllChannels(t *testing.T) {
 		DisplayName:      "SearchAllChannels-groupConstrained-1",
 		Name:             "groupconstrained1",
 		Type:             model.ChannelTypePrivate,
-		GroupConstrained: model.NewPointer(true),
+		GroupConstrained: new(true),
 		TeamId:           team.Id,
 	})
 	require.NoError(t, err)
@@ -3328,7 +3328,7 @@ func TestSearchAllChannels(t *testing.T) {
 	policy, savePolicyErr := th.App.Srv().Store().RetentionPolicy().Save(&model.RetentionPolicyWithTeamAndChannelIDs{
 		RetentionPolicy: model.RetentionPolicy{
 			DisplayName:      "Policy 1",
-			PostDurationDays: model.NewPointer(int64(30)),
+			PostDurationDays: new(int64(30)),
 		},
 		ChannelIDs: []string{policyChannel.Id},
 	})
@@ -3473,8 +3473,8 @@ func TestSearchAllChannelsPaged(t *testing.T) {
 
 	search := &model.ChannelSearch{Term: th.BasicChannel.Name}
 	search.Term = ""
-	search.Page = model.NewPointer(0)
-	search.PerPage = model.NewPointer(2)
+	search.Page = new(0)
+	search.PerPage = new(2)
 	channelsWithCount, _, err := th.SystemAdminClient.SearchAllChannelsPaged(context.Background(), search)
 	require.NoError(t, err)
 	require.Len(t, channelsWithCount.Channels, 2)
@@ -5141,7 +5141,7 @@ func TestAddChannelMember(t *testing.T) {
 	require.NoError(t, err)
 
 	// Set a channel to group-constrained
-	privateChannel.GroupConstrained = model.NewPointer(true)
+	privateChannel.GroupConstrained = new(true)
 	_, appErr = th.App.UpdateChannel(th.Context, privateChannel)
 	require.Nil(t, appErr)
 
@@ -5644,7 +5644,7 @@ func TestRemoveChannelMember(t *testing.T) {
 	require.NoError(t, err)
 
 	// If the channel is group-constrained the user cannot be removed
-	privateChannel.GroupConstrained = model.NewPointer(true)
+	privateChannel.GroupConstrained = new(true)
 	_, appErr = th.App.UpdateChannel(th.Context, privateChannel)
 	require.Nil(t, appErr)
 	_, err = client.RemoveUserFromChannel(context.Background(), privateChannel.Id, user2.Id)
@@ -6140,7 +6140,7 @@ func TestChannelMembersMinusGroupMembers(t *testing.T) {
 	_, appErr = th.App.AddChannelMember(th.Context, user2.Id, channel, app.ChannelMemberOpts{})
 	require.Nil(t, appErr)
 
-	channel.GroupConstrained = model.NewPointer(true)
+	channel.GroupConstrained = new(true)
 	channel, appErr = th.App.UpdateChannel(th.Context, channel)
 	require.Nil(t, appErr)
 
@@ -6487,7 +6487,7 @@ func TestPatchChannelModerations(t *testing.T) {
 		patch := []*model.ChannelModerationPatch{
 			{
 				Name:  &createPosts,
-				Roles: &model.ChannelModeratedRolesPatch{Members: model.NewPointer(false)},
+				Roles: &model.ChannelModeratedRolesPatch{Members: new(false)},
 			},
 		}
 
@@ -6529,7 +6529,7 @@ func TestPatchChannelModerations(t *testing.T) {
 		patch := []*model.ChannelModerationPatch{
 			{
 				Name:  &createPosts,
-				Roles: &model.ChannelModeratedRolesPatch{Members: model.NewPointer(true)},
+				Roles: &model.ChannelModeratedRolesPatch{Members: new(true)},
 			},
 		}
 
@@ -6608,7 +6608,7 @@ func TestPatchChannelModerations(t *testing.T) {
 		patch := []*model.ChannelModerationPatch{
 			{
 				Name:  &createPosts,
-				Roles: &model.ChannelModeratedRolesPatch{Members: model.NewPointer(true)},
+				Roles: &model.ChannelModeratedRolesPatch{Members: new(true)},
 			},
 		}
 
@@ -6696,9 +6696,9 @@ func TestGetChannelMemberCountsByGroup(t *testing.T) {
 	id := model.NewId()
 	group := &model.Group{
 		DisplayName: "dn_" + id,
-		Name:        model.NewPointer("name" + id),
+		Name:        new("name" + id),
 		Source:      model.GroupSourceLdap,
-		RemoteId:    model.NewPointer(model.NewId()),
+		RemoteId:    new(model.NewId()),
 	}
 
 	_, appErr = th.App.CreateGroup(group)
@@ -7265,7 +7265,7 @@ func TestSetChannelMembers(t *testing.T) {
 
 	t.Run("group-constrained channel rejected", func(t *testing.T) {
 		channel := th.CreatePublicChannel(t)
-		channel.GroupConstrained = model.NewPointer(true)
+		channel.GroupConstrained = new(true)
 		_, appErr := th.App.UpdateChannel(th.Context, channel)
 		require.Nil(t, appErr)
 

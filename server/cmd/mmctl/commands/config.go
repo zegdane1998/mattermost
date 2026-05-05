@@ -577,9 +577,7 @@ func cloudRestrictedR(t reflect.Type, path []string) bool {
 		return false
 	}
 
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-
+	for field := range t.Fields() {
 		if len(path) == 0 || field.Name != path[0] {
 			continue
 		}
